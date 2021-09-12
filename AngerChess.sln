@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngerChess", "mad chess\AngerChess.csproj", "{65021295-0A0B-42BD-A607-56F418E54649}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM64 = Debug|ARM64
+		Release|Any CPU = Release|Any CPU
+		Release|ARM64 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65021295-0A0B-42BD-A607-56F418E54649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65021295-0A0B-42BD-A607-56F418E54649}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65021295-0A0B-42BD-A607-56F418E54649}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{65021295-0A0B-42BD-A607-56F418E54649}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{65021295-0A0B-42BD-A607-56F418E54649}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65021295-0A0B-42BD-A607-56F418E54649}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65021295-0A0B-42BD-A607-56F418E54649}.Release|ARM64.ActiveCfg = Release|ARM64
+		{65021295-0A0B-42BD-A607-56F418E54649}.Release|ARM64.Build.0 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D935348-72BE-4950-87A1-E1955E8E2845}
+	EndGlobalSection
+EndGlobal
