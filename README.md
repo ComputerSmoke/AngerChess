@@ -1,5 +1,5 @@
 # AngerChess
-Work-in-progress Bot to play "Mad Chess".
+Work-in-progress bot to play "Mad Chess".
 
 Anger Chess is a bot designed to play "Mad Chess". It uses an object-oriented implementation of the game rules, and a convolutional neural network 
 with a few deep layers to evaluate positions. A different pair of these neural networks will be applied to each matchup combination (A total of about 256 models).
