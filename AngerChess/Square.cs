@@ -23,7 +23,7 @@
         public Square(int row, int col, Board board) {
 			this.row = row;
 			this.col = col;
-            isWater = false;
+            water = false;
             this.board = board;
             connectedSquares = new Square[16];
 		}
