@@ -17,11 +17,15 @@ namespace MadChess
         public int turn { get; set; }
         private Army army0;
         private Army army1;
+        public Square enPassant { get; set; }
+        public Piece enPassantPiece { get; set; }
 		public Board(Army army0, Army army1)
 		{
             turn = 1;
             winner = -2;
             squares = new Square[rows, cols];
+            enPassant = null;
+            enPassantPiece = null;
             moveStack = new Stack<Move>();
             this.army0 = army0;
             this.army1 = army1;
@@ -131,24 +135,15 @@ namespace MadChess
                 {
                     Piece piece = squares[i, j].piece;
                     str += "\t";
-                    if (piece == null)
-                    {
-                        str += "Null";
-                    } 
-                    else if (piece.color == 0)
-                    {
-                        str += piece.name.ToUpper();
-                    } else
-                    {
-                        str += piece.name;
-                    }
+                    if (enPassant == squares[i, j]) str += "es";
+                    else if (piece != null && enPassantPiece == piece) str += "ep";
+                    if (piece == null) str += "Null";
+                    else if (piece.color == 0)str += piece.name.ToUpper(); 
+                    else str += piece.name;
                 }
                 str += "\n\n";
             }
-            for(int i = 0; i < 8; i++)
-            {
-                str += "\t" + colNames[i];
-            }
+            for(int i = 0; i < 8; i++) str += "\t" + colNames[i];
             return str;
         }
 
@@ -160,10 +155,7 @@ namespace MadChess
                 if(move is Capture)
                 {
                     Capture capture = (Capture) move;
-                    if(capture.capturedPiece is King && capture.capturedPiece.color != turn)
-                    {
-                        return true;
-                    }
+                    if(capture.capturedPiece is King && capture.capturedPiece.color != turn) return true;
                 }
             }
             return false;

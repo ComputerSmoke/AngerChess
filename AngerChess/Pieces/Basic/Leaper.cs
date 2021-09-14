@@ -6,6 +6,7 @@ namespace MadChess
 {
     abstract class Leaper : Piece
     {
+        //A minor piece that leaps in an L shape
         public Leaper(int color) : base(color)
         {
             bitIdx = 2;
@@ -23,8 +24,8 @@ namespace MadChess
                     moves.Add(capture);
                 } else if(targetSquare.canMove(this))
                 {
-                    Move move = new Move(this, targetSquare);
-                    moves.Add(move);
+                    Travel travel = new Travel(this, targetSquare);
+                    moves.Add(travel);
                 }
             }
             return moves;

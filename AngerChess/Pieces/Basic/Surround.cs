@@ -6,6 +6,7 @@ namespace MadChess
 {
     abstract class Surround : Ortho
     {
+        //A piece that moves both orthogonally and diagonally
         public Surround(int color) : base(color)
         {
             bitIdx = 4;
@@ -27,8 +28,8 @@ namespace MadChess
                     }
                     else if (targetSquare.canMove(this))
                     {
-                        Move move = new Move(this, targetSquare);
-                        moves.Add(move);
+                        Travel travel = new Travel(this, targetSquare);
+                        moves.Add(travel);
                     }
                     if (!targetSquare.canPass(this)) break;
                 }

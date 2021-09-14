@@ -16,10 +16,12 @@ namespace MadChess
         }
         public override void execute()
         {
+            base.execute();
             piece.capture(this);
         }
         public override void undo()
         {
+            base.execute();
             piece.undoCapture(this);
         }
     }

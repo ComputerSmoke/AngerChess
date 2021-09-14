@@ -7,8 +7,10 @@ namespace MadChess
     abstract class Minion : Piece
     {
         protected bool canDouble;
+        //A pawn-like piece
         public Minion(int color) : base(color)
         {
+            canEnPassant = true;
             bitIdx = 0;
         }
         public override List<Move> getMoves()
@@ -33,20 +35,23 @@ namespace MadChess
             }
             if (moveSquare.canMove(this))
             {
-                Move move = new Move(this, moveSquare);
-                moves.Add(move);
+                Travel travel = new Travel(this, moveSquare);
+                moves.Add(travel);
             }
             if(canDouble && moveSquare.canPass(this) && moveSquare.connectedSquares[moveDir].canMove(this))
             {
-                Move move = new Move(this, moveSquare.connectedSquares[moveDir]);
-                moves.Add(move);
+                Travel travel = new Travel(this, moveSquare.connectedSquares[moveDir]);
+                moves.Add(travel);
             }
             foreach(Square atkSquare in atkSquares)
             {
                 if (atkSquare == null) continue;
                 if(atkSquare.canAttack(this))
                 {
-                    Capture capture = new Capture(this, atkSquare, atkSquare.piece);
+                    Capture capture;
+                    //if piece on square is null, we must be taking the enPassant piece.
+                    if (atkSquare.piece == null) capture = new Capture(this, atkSquare, square.board.enPassantPiece);
+                    else capture = new Capture(this, atkSquare, atkSquare.piece);
                     moves.Add(capture);
                 }
             }
@@ -56,8 +61,19 @@ namespace MadChess
 
         public override void move(Move move)
         {
+            //store previous row index
+            int prevRow = square.row;
+            //move the piece
             base.move(move);
+            //if double moved, create enPassant vulnerability
+            if (Math.Abs(prevRow - square.row) == 2)
+            {
+                square.board.enPassant = square.connectedSquares[color*2];
+                square.board.enPassantPiece = this;
+            }
+            //minion cannot double move after having moved
             canDouble = false;
+            //promote if on last rank
             if (square.row == 7 * ((color + 1) % 2)) promote();
         }
 

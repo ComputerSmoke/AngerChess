@@ -2,7 +2,7 @@
 {
     class Square
     {
-        Board board;
+        public Board board { get; set; } 
         public int row { get; set; } 
         public int col { get; set; }
 		public Square[] connectedSquares
@@ -38,7 +38,12 @@
         }
         public bool canAttack(Piece movePiece)
         {
-            if (piece == null) return false;
+            if (piece == null)
+            {
+                //en-passant-ers can attack this square only if it is the enPassant square
+                if (movePiece.canEnPassant && board.enPassant == this) return board.enPassantPiece.canAttack(movePiece);
+                return false;
+            }
             return piece.canAttack(movePiece);
         }
         public bool canMove(Piece movePiece)

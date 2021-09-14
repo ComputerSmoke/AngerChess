@@ -10,7 +10,8 @@ namespace MadChess
         {
             Engine p0 = new Engines.Human.Human();
             Engine p1 = new Engines.Human.Human();
-            playGames(p0, p1);
+            playHuman();
+            //playGames(p0, p1);
         }
         private static void playGames(Engine p0, Engine p1)
         {
@@ -64,6 +65,10 @@ namespace MadChess
                     catch (InvalidMoveException err)
                     {
                         Console.WriteLine(err);
+                    } catch
+                    {
+                        Console.WriteLine("Invalid move. Moves must be given in format: e2e4");
+                        continue;
                     }
                 }
 

@@ -6,6 +6,7 @@ namespace MadChess
 {
     class King : Surround
     {
+        //A king
         public King(int color) : base(color)
         {
             moveDist = 1;

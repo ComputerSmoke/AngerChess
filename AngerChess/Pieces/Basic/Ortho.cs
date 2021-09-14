@@ -6,6 +6,7 @@ namespace MadChess
 {
     abstract class Ortho : Piece
     {
+        //A minor piece that moves orthogonally
         public Ortho(int color) : base(color)
         {
             bitIdx = 1;
@@ -27,8 +28,8 @@ namespace MadChess
                     }
                     else if (targetSquare.canMove(this))
                     {
-                        Move move = new Move(this, targetSquare);
-                        moves.Add(move);
+                        Travel travel = new Travel(this, targetSquare);
+                        moves.Add(travel);
                     }
                     if (!targetSquare.canPass(this)) break;
                 }

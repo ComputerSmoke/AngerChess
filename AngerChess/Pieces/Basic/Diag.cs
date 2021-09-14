@@ -6,6 +6,7 @@ namespace MadChess
 {
     abstract class Diag : Piece
     {
+        //A minor piece that moves diagonally
         public Diag(int color) : base(color)
         {
             bitIdx = 3;
@@ -26,8 +27,8 @@ namespace MadChess
                         moves.Add(capture);
                     } else if (targetSquare.canMove(this))
                     {
-                        Move move = new Move(this, targetSquare);
-                        moves.Add(move);
+                        Travel travel = new Travel(this, targetSquare);
+                        moves.Add(travel);
                     }
                     if (!targetSquare.canPass(this)) break;
                 }

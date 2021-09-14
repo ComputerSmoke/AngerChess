@@ -11,10 +11,13 @@ namespace MadChess
         protected bool invincible;
         protected int moveDist;
         public int bitIdx;
+        public bool canEnPassant { get; set; }
         public Square square{get; set;}
+        //A chess piece
         protected Piece(int color)
         {
             this.color = color;
+            this.canEnPassant = false;
             canLeap = false;
         }
         public virtual void capture(Capture capture)
@@ -60,6 +63,7 @@ namespace MadChess
         }
         public virtual void capture()
         {
+            square.piece = null;
         }
     }
 }
