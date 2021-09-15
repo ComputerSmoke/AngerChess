@@ -18,7 +18,7 @@ namespace MadChess
             {
                 Square targetSquare = square.connectedSquares[dir];
                 if (targetSquare == null) continue;
-                if (targetSquare.canAttack(this))
+                if (targetSquare.canAttackBy(this))
                 {
                     Capture capture = new Capture(this, targetSquare, targetSquare.piece);
                     moves.Add(capture);

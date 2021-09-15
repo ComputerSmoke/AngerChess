@@ -46,7 +46,7 @@ namespace MadChess
             foreach(Square atkSquare in atkSquares)
             {
                 if (atkSquare == null) continue;
-                if(atkSquare.canAttack(this))
+                if(atkSquare.canAttackBy(this))
                 {
                     Capture capture;
                     //if piece on square is null, we must be taking the enPassant piece.

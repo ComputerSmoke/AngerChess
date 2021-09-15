@@ -7,7 +7,7 @@
             name = "human";
             loadPieces();
         }
-        void loadPieces()
+        private void loadPieces()
         {
             for(int i = 0; i < 8; i++)
             {

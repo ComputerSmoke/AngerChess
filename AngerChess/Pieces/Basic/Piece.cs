@@ -7,18 +7,19 @@ namespace MadChess
 		public abstract List<Move> getMoves();
         public string name { get; set; }
         public int color { get; set; }
-        protected bool canLeap;
-        protected bool invincible;
+        public bool canLeap { get; set; }
         protected int moveDist;
         public int bitIdx;
+        public bool immune;
         public bool canEnPassant { get; set; }
         public Square square{get; set;}
         //A chess piece
         protected Piece(int color)
         {
             this.color = color;
-            this.canEnPassant = false;
+            canEnPassant = false;
             canLeap = false;
+            immune = false;
         }
         public virtual void capture(Capture capture)
         {
@@ -49,9 +50,9 @@ namespace MadChess
         {
             square.piece = this;
         }
-        public virtual bool canAttack(Piece piece)
+        public virtual bool canAttackBy(Piece piece)
         {
-            return !invincible && piece.color != color;
+            return piece.color != color;
         }
         public virtual bool canMove(Piece piece)
         {
@@ -65,5 +66,10 @@ namespace MadChess
         {
             square.piece = null;
         }
+        public virtual bool canAttack(Square square)
+        {
+            return square.canAttackBy(this);
+        }
+        public virtual void moveEffect() { }
     }
 }

@@ -82,6 +82,12 @@ namespace MadChess
             moveString = moveString.ToUpper();
             int c1 = moveString[0] - 65;
             int r1 = 8-int.Parse(moveString[1].ToString());
+            if(moveString.Length == 2)
+            {
+                List<Move> moveOut = squares[r1, c1].piece.getMoves();
+                for (int i = 0; i < moveOut.Count; i++) Console.WriteLine("[" +(8-moveOut[i].toSquare.row) + ", " + ((char)('a'+moveOut[i].toSquare.col)) + "]");
+                return;
+            }
             int c2 = moveString[2] - 65;
             int r2 = 8-int.Parse(moveString[3].ToString());
             Square fromSquare = squares[r1, c1];
@@ -135,8 +141,9 @@ namespace MadChess
                 {
                     Piece piece = squares[i, j].piece;
                     str += "\t";
-                    if (enPassant == squares[i, j]) str += "es";
-                    else if (piece != null && enPassantPiece == piece) str += "ep";
+                    if (enPassant == squares[i, j]) str += "[";
+                    if (squares[i, j].invincible != 0) str += "|";
+                    else if (piece != null && enPassantPiece == piece) str += "]";
                     if (piece == null) str += "Null";
                     else if (piece.color == 0)str += piece.name.ToUpper(); 
                     else str += piece.name;

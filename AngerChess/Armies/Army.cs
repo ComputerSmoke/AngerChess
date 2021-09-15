@@ -7,12 +7,10 @@ namespace MadChess
 	{
         protected Piece[] pieces;
         public int color;
-        public int bitCount;
         public string name;
         protected Army(int color)
         {
             this.color = color;
-            bitCount = 6;
             pieces = new Piece[16];
         }
         public void place(Board board)
@@ -31,6 +29,10 @@ namespace MadChess
                 square.piece = pieces[i + 8];
                 pieces[i+8].square = square;
                 square = square.connectedSquares[1];
+            }
+            for(int i = 0; i < 16; i++)
+            {
+                pieces[i].moveEffect();
             }
         }
 	}

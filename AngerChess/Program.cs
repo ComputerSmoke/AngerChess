@@ -23,8 +23,8 @@ namespace MadChess
         }
 		private static int play(Engine p0, Engine p1)
         {
-            Army army0 = new HumanArmy(0);
-            Army army1 = new HumanArmy(1);
+            Army army0 = new AngelArmy(0);
+            Army army1 = new AngelArmy(1);
             Board board = new Board(army0, army1);
             army0.place(board);
             army1.place(board);
@@ -43,7 +43,7 @@ namespace MadChess
         private static void playHuman()
         {
             Army army0 = new HumanArmy(0);
-            Army army1 = new HumanArmy(1);
+            Army army1 = new AngelArmy(1);
             Board board = new Board(army0, army1);
             army0.place(board);
             army1.place(board);

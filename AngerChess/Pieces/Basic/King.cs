@@ -12,6 +12,7 @@ namespace MadChess
             moveDist = 1;
             name = "King";
             bitIdx = 5;
+            immune = true;
         }
         public override void capture()
         {
