@@ -14,7 +14,7 @@ namespace MadChess
             bitIdx = 5;
             immune = true;
         }
-        public override void capture()
+        public override void captureBy(Capture capture)
         {
             square.win((color + 1) % 2);
         }

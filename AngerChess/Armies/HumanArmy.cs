@@ -6,6 +6,7 @@
         {
             name = "human";
             loadPieces();
+            linkPieces();
         }
         private void loadPieces()
         {

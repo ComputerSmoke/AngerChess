@@ -6,16 +6,18 @@ namespace MadChess
 {
     abstract class Move
     {
-        protected Piece piece;
+        public Piece piece { get; set; }
         protected Square prevEnPassant;
         protected Piece prevEnPassantPiece;
         public Square fromSquare
         {
             get;
+            set;
         }
         public Square toSquare
         {
             get;
+            set;
         }
         public Move(Piece piece, Square toSquare)
         {

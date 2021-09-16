@@ -15,20 +15,18 @@ namespace MadChess
         public Stack<Move> moveStack { get; set; }
         public int winner { get; set; }
         public int turn { get; set; }
-        private Army army0;
-        private Army army1;
+        public Army[] armies;
         public Square enPassant { get; set; }
         public Piece enPassantPiece { get; set; }
-		public Board(Army army0, Army army1)
-		{
+        public Board(Army army0, Army army1)
+        {
             turn = 1;
             winner = -2;
             squares = new Square[rows, cols];
             enPassant = null;
             enPassantPiece = null;
             moveStack = new Stack<Move>();
-            this.army0 = army0;
-            this.army1 = army1;
+            armies = new Army[] {army0, army1};
             createSquares();
 			connectSquares();
 		}
@@ -136,7 +134,7 @@ namespace MadChess
             string str = "";
             for(int i = 0; i < 8; i++)
             {
-                str += (8 - i);
+                str += 8 - i;
                 for(int j = 0; j < 8; j++)
                 {
                     Piece piece = squares[i, j].piece;

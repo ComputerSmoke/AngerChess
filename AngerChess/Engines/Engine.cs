@@ -66,7 +66,7 @@ namespace MadChess
                 {
                     model.load_weights(tf.train.latest_checkpoint("./checkpoints/" + modelName));
                 }
-                catch (Exception err)
+                catch
                 {
                     Console.WriteLine("Weights could not be loaded. Starting from randomized values.");
                 }

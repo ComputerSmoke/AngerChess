@@ -7,10 +7,12 @@ namespace MadChess
     abstract class Minion : Piece
     {
         protected bool canDouble;
+        public bool canBeEnPassant;
         //A pawn-like piece
         public Minion(int color) : base(color)
         {
             canEnPassant = true;
+            canBeEnPassant = true;
             bitIdx = 0;
         }
         public override List<Move> getMoves()
@@ -38,7 +40,7 @@ namespace MadChess
                 Travel travel = new Travel(this, moveSquare);
                 moves.Add(travel);
             }
-            if(canDouble && moveSquare.canPass(this) && moveSquare.connectedSquares[moveDir].canMove(this))
+            if(canDoubleMove() && moveSquare.canPass(this) && moveSquare.connectedSquares[moveDir].canMove(this))
             {
                 Travel travel = new Travel(this, moveSquare.connectedSquares[moveDir]);
                 moves.Add(travel);
@@ -59,6 +61,11 @@ namespace MadChess
             return moves;
         }
 
+        protected virtual bool canDoubleMove()
+        {
+            return canDouble;
+        }
+
         public override void move(Move move)
         {
             //store previous row index
@@ -66,7 +73,7 @@ namespace MadChess
             //move the piece
             base.move(move);
             //if double moved, create enPassant vulnerability
-            if (Math.Abs(prevRow - square.row) == 2)
+            if (canBeEnPassant && Math.Abs(prevRow - square.row) == 2)
             {
                 square.board.enPassant = square.connectedSquares[color*2];
                 square.board.enPassantPiece = this;
@@ -79,6 +86,11 @@ namespace MadChess
 
         public virtual void promote()
         {
+            Piece piece = makePromotionPiece();
+            piece.square = square;
+            square.piece = piece;
+            piece.linkAllPiece();
         }
+        protected abstract Piece makePromotionPiece();
     }
 }

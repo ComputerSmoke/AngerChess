@@ -35,5 +35,13 @@ namespace MadChess
                 pieces[i].moveEffect();
             }
         }
+        //Link pieces of the same type for abilities such as shaman and drake.
+        protected void linkPieces()
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                pieces[i + 8].linkPiece(pieces[pieces.Length - i - 1]);
+            }
+        }
 	}
 }

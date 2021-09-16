@@ -12,11 +12,9 @@ namespace MadChess
             name = "Pawn";
         }
 
-        public override void promote()
+        protected override Piece makePromotionPiece()
         {
-            Queen queen = new Queen(color);
-            queen.square = square;
-            square.piece = queen;
+            return new Judge(color);
         }
     }
 }

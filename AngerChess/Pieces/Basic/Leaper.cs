@@ -18,17 +18,22 @@ namespace MadChess
             {
                 Square targetSquare = square.connectedSquares[dir];
                 if (targetSquare == null) continue;
-                if (targetSquare.canAttackBy(this))
-                {
-                    Capture capture = new Capture(this, targetSquare, targetSquare.piece);
-                    moves.Add(capture);
-                } else if(targetSquare.canMove(this))
-                {
-                    Travel travel = new Travel(this, targetSquare);
-                    moves.Add(travel);
-                }
+                appendMove(moves, targetSquare);
             }
             return moves;
+        }
+        protected virtual void appendMove(List<Move> moves, Square targetSquare)
+        {
+            if (targetSquare.canAttackBy(this))
+            {
+                Capture capture = new Capture(this, targetSquare, targetSquare.piece);
+                moves.Add(capture);
+            }
+            else if (targetSquare.canMove(this))
+            {
+                Travel travel = new Travel(this, targetSquare);
+                moves.Add(travel);
+            }
         }
     }
 }

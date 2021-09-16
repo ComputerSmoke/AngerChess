@@ -4,17 +4,15 @@ using System.Text;
 
 namespace MadChess
 {
-    class Pawn : Minion
+    class PawnDragon : Minion
     {
-        public Pawn(int color) : base(color)
-        {
+        public PawnDragon(int color) : base(color) {
             canDouble = true;
             name = "Pawn";
         }
-
         protected override Piece makePromotionPiece()
         {
-            return new Queen(color);
+            return new Egg(color);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace MadChess
         {
             name = "angel";
             loadPieces();
+            linkPieces();
         }
         private void loadPieces()
         {

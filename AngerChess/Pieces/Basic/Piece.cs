@@ -13,6 +13,7 @@ namespace MadChess
         public bool immune;
         public bool canEnPassant { get; set; }
         public Square square{get; set;}
+        public List<Piece> samePieces { get; set; }
         //A chess piece
         protected Piece(int color)
         {
@@ -20,11 +21,12 @@ namespace MadChess
             canEnPassant = false;
             canLeap = false;
             immune = false;
+            samePieces = new List<Piece>();
         }
         public virtual void capture(Capture capture)
         {
-            capture.capturedPiece.capture();
             move(capture);
+            capture.capturedPiece.captureBy(capture);
         }
         public virtual void move(Move move) {
             move.toSquare.piece = this;
@@ -62,14 +64,43 @@ namespace MadChess
         {
             return piece.canLeap;
         }
-        public virtual void capture()
+        public virtual void captureBy(Capture capture)
         {
-            square.piece = null;
         }
         public virtual bool canAttack(Square square)
         {
             return square.canAttackBy(this);
         }
         public virtual void moveEffect() { }
+        public virtual void linkPiece(Piece piece)
+        {
+            piece.samePieces.Add(this);
+            samePieces.Add(piece);
+        }
+        //link piece to all pieces of same type on board
+        public virtual void linkAllPiece()
+        {
+            Square[,] squares = square.board.squares;
+            for(int i = 0; i < squares.GetLength(0); i++)
+            {
+                for(int j = 0; j < squares.GetLength(1); j++)
+                {
+                    Piece piece = square.piece;
+                    if (piece == null) continue;
+                    if (piece.GetType() == GetType()) linkPiece(piece);
+                }
+            }
+        }
+
+        public virtual void spawn(Spawn spawn)
+        {
+            spawn.toSquare.piece = this;
+            square = spawn.toSquare;
+        }
+        public virtual void despawn(Spawn spawn)
+        {
+            square.piece = null;
+            square = null;
+        }
     }
 }
