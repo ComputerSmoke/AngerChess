@@ -5,7 +5,8 @@
         public Board board { get; set; } 
         public int row { get; set; } 
         public int col { get; set; }
-        public int invincible { get; set; }
+        public int[] invincible { get; set; }
+        public int[] shroomed { get; set; }
         public Square[] connectedSquares
         {
             get;
@@ -26,7 +27,8 @@
 			this.col = col;
             water = false;
             this.board = board;
-            invincible = 0;
+            shroomed = new int[] { 0, 0 };
+            invincible = new int[] { 0, 0 };
             connectedSquares = new Square[16];
 		}
 		public void connect(Square square, int connectionType)
@@ -43,13 +45,14 @@
             if (piece == null)
             {
                 //en-passant-ers can attack this square only if it is the enPassant square and the square the piece is on is not invincible
-                if (movePiece.canEnPassant && board.enPassant == this && board.enPassantPiece.square.invincible > 0)
+                if (movePiece.canEnPassant && board.enPassant == this && board.enPassantPiece.square.invincible[piece.color] > 0)
                 {
                     return board.enPassantPiece.canAttackBy(movePiece);
                 }
                 return false;
             }
-            return (invincible==0 || piece.immune) && piece.canAttackBy(movePiece);
+            //immune pieces (king) is not affected by invincible.
+            return (invincible[piece.color]==0 || piece.immune) && piece.canAttackBy(movePiece);
         }
         public bool canMove(Piece movePiece)
         {

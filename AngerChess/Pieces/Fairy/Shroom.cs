@@ -4,22 +4,17 @@ using System.Text;
 
 namespace MadChess
 {
-    class Shield : Surround
+    class Shroom : Ortho
     {
-        public Shield(int color) : base(color)
+        public Shroom(int color) : base(color)
         {
-            moveDist = 3;
-            name = "Shield";
+            name = "Shroom";
+            moveDist = 4;
         }
-        public override bool canAttack(Square square)
+        public override void captureBy(Capture capture)
         {
-            //Shield cannot attack
-            return false;
-        }
-        public override bool canAttackBy(Piece piece)
-        {
-            //Shield cannot be attacked
-            return false;
+            undoEffect();
+            base.captureBy(capture);
         }
         public override void move(Move move)
         {
@@ -36,18 +31,18 @@ namespace MadChess
         }
         public override void moveEffect()
         {
-            for (int dir = 1; dir <= 3; dir += 2)
+            for (int dir = 0; dir < 7; dir++)
             {
                 if (square.connectedSquares[dir] == null) continue;
-                square.connectedSquares[dir].invincible[color]++;
+                square.connectedSquares[dir].shroomed[color]++;
             }
         }
         public void undoEffect()
         {
-            for (int dir = 1; dir <= 3; dir += 2)
+            for (int dir = 0; dir < 7; dir++)
             {
                 if (square.connectedSquares[dir] == null) continue;
-                square.connectedSquares[dir].invincible[color]--;
+                square.connectedSquares[dir].shroomed[color]--;
             }
         }
     }

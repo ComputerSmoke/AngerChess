@@ -25,8 +25,8 @@ namespace MadChess
         }
         public virtual void capture(Capture capture)
         {
-            move(capture);
             capture.capturedPiece.captureBy(capture);
+            move(capture);
         }
         public virtual void move(Move move) {
             move.toSquare.piece = this;
@@ -35,8 +35,8 @@ namespace MadChess
         }
         public virtual void undoCapture(Capture capture)
         {
-            capture.capturedPiece.revive();
             undo(capture);
+            capture.capturedPiece.revive();
         }
         public virtual void undoMove(Move move)
         {
@@ -101,6 +101,14 @@ namespace MadChess
         {
             square.piece = null;
             square = null;
+        }
+        public virtual void shoot(Shoot shoot)
+        {
+            shoot.capturedPiece.captureBy(shoot);
+        }
+        public virtual void undoShoot(Shoot shoot)
+        {
+            shoot.capturedPiece.revive();
         }
     }
 }

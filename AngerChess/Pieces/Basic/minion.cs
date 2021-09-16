@@ -29,20 +29,25 @@ namespace MadChess
                 atkDirs[0] = 5;
                 atkDirs[1] = 6;
             }
-            Square moveSquare = square.connectedSquares[moveDir];
             Square[] atkSquares = new Square[2];
             for(int i = 0; i < atkSquares.GetLength(0); i++)
             {
                 atkSquares[i] = square.connectedSquares[atkDirs[i]];
             }
-            if (moveSquare.canMove(this))
+            Square moveSquare = square;
+            for (int i = 0; i < 1 + (square.shroomed[color] > 0 ? 1 : 0); i++)
             {
-                Travel travel = new Travel(this, moveSquare);
-                moves.Add(travel);
+                moveSquare = square.connectedSquares[moveDir];
+                if (moveSquare.canMove(this))
+                {
+                    Travel travel = new Travel(this, moveSquare);
+                    moves.Add(travel);
+                }
             }
+
             if(canDoubleMove() && moveSquare.canPass(this) && moveSquare.connectedSquares[moveDir].canMove(this))
             {
-                Travel travel = new Travel(this, moveSquare.connectedSquares[moveDir]);
+                DoubleTravel travel = new DoubleTravel(this, moveSquare.connectedSquares[moveDir]);
                 moves.Add(travel);
             }
             foreach(Square atkSquare in atkSquares)
@@ -72,12 +77,6 @@ namespace MadChess
             int prevRow = square.row;
             //move the piece
             base.move(move);
-            //if double moved, create enPassant vulnerability
-            if (canBeEnPassant && Math.Abs(prevRow - square.row) == 2)
-            {
-                square.board.enPassant = square.connectedSquares[color*2];
-                square.board.enPassantPiece = this;
-            }
             //minion cannot double move after having moved
             canDouble = false;
             //promote if on last rank
