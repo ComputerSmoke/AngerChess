@@ -31,7 +31,7 @@ namespace MadChess
         }
         public override void moveEffect()
         {
-            for (int dir = 0; dir < 7; dir++)
+            for (int dir = 0; dir < 8; dir++)
             {
                 if (square.connectedSquares[dir] == null) continue;
                 square.connectedSquares[dir].shroomed[color]++;

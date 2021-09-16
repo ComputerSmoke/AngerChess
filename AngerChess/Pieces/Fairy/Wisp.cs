@@ -11,22 +11,32 @@ namespace MadChess
             name = "Wisp";
             moveDist = 2;
         }
-        public override List<Move> getMoves()
+        protected override void appendMovesDir(int dir, List<Move> moves)
         {
-            List<Move> moves = new List<Move>();
-            //move normally on diagonalls
-            for(int i = 4; i < 8; i++)
-            {
-                appendMovesDir(i, moves);
+            //move normally on diagonals
+            if (dir > 3) {
+                base.appendMovesDir(dir, moves);
+                return;
             }
-            //can pass other pieces on orthogonals
-            canLeap = true;
-            for(int idx = 0; idx < 4; idx++)
+            //ortho move dist 2, range 2 is leaping shoot instead if square occupied
+            Square targetSquare = square.connectedSquares[dir];
+            if (targetSquare == null) return;
+            if(targetSquare.canAttackBy(this))
             {
-                appendMovesDir(idx, moves);
+                Capture capture = new Capture(this, targetSquare, targetSquare.piece);
+                moves.Add(capture);
             }
-            canLeap = false;
-            return moves;
+            Square shootSquare = targetSquare.connectedSquares[dir];
+            if (shootSquare == null) return;
+            if(shootSquare.canAttackBy(this))
+            {
+                Shoot shoot = new Shoot(this, shootSquare, shootSquare.piece);
+                moves.Add(shoot);
+            } else if(targetSquare.canPass(this) && shootSquare.canMove(this))
+            {
+                Travel travel = new Travel(this, shootSquare);
+                moves.Add(travel);
+            }
         }
 
         public override void capture(Capture capture)

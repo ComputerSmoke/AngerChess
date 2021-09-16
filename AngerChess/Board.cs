@@ -140,8 +140,12 @@ namespace MadChess
                     Piece piece = squares[i, j].piece;
                     str += "\t";
                     if (enPassant == squares[i, j]) str += "[";
-                    if (squares[i, j].invincible != 0) str += "|";
-                    else if (piece != null && enPassantPiece == piece) str += "]";
+                    if (piece != null)
+                    {
+                        if (squares[i, j].invincible[piece.color] != 0) str += "|";
+                        else if (enPassantPiece == piece) str += "]";
+                        if (squares[i, j].shroomed[piece.color] != 0) str += "?";
+                    }
                     if (piece == null) str += "Null";
                     else if (piece.color == 0)str += piece.name.ToUpper(); 
                     else str += piece.name;

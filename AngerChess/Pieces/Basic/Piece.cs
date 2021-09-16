@@ -66,6 +66,7 @@ namespace MadChess
         }
         public virtual void captureBy(Capture capture)
         {
+            square.piece = null;
         }
         public virtual bool canAttack(Square square)
         {

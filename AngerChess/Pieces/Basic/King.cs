@@ -26,7 +26,7 @@ namespace MadChess
                 Square tSquare = square;
                 for(int j = 0; j < 2; j++)
                 {
-                    tSquare = square.connectedSquares[i];
+                    tSquare = tSquare.connectedSquares[i];
                     if (tSquare == null) goto cont;
                 }
                 if(tSquare.canMove(this))
@@ -41,6 +41,7 @@ namespace MadChess
         public override void captureBy(Capture capture)
         {
             square.win((color + 1) % 2);
+            base.captureBy(capture);
         }
         public override void revive()
         {

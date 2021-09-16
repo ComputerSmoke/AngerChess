@@ -20,8 +20,8 @@ namespace MadChess
         }
         public override void captureBy(Capture capture)
         {
-            base.captureBy(capture);
             ((DragonArmy)square.board.armies[color]).heads--;
+            base.captureBy(capture);
         }
         public override void revive()
         {

@@ -37,7 +37,7 @@ namespace MadChess
             Square moveSquare = square;
             for (int i = 0; i < 1 + (square.shroomed[color] > 0 ? 1 : 0); i++)
             {
-                moveSquare = square.connectedSquares[moveDir];
+                moveSquare = moveSquare.connectedSquares[moveDir];
                 if (moveSquare.canMove(this))
                 {
                     Travel travel = new Travel(this, moveSquare);

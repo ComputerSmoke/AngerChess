@@ -10,11 +10,11 @@ namespace MadChess
         {
 
         }
-        public void execute()
+        public override void execute()
         {
             piece.shoot(this);
         }
-        public void undo()
+        public override void undo()
         {
             piece.shoot(this);
         }
